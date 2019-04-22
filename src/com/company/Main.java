@@ -49,14 +49,33 @@ public class Main {
     public static String stringCompare(String str1 , String str2){
         int l1 = str1.length();
         int l2 = str2.length();
-        int lmin = Math.min(l1,l2);
-        for (int i = 0; i < lmin; i++) {
-            char c1 = str1.charAt(i);
-            char c2 = str2.charAt(i);
-            if (charCompare(c1 , c2) == c1){
+        for (int i = 0 , j=0 ; i < l1 && j<l2 ; i++ , j++) {
+            while ( i<l1 && str1.charAt(i) == ' '){
+                i++;
+            }
+            while ( j<l2 && str2.charAt(j) == ' '){
+                j++;
+            }
+            if (i>=l1 || j>=l2){
+                break;
+            }
+            boolean ok = false ;
+            if (str1.charAt(i) == '(' || str1.charAt(i) == ')'){
+                l1 = i+1;
+                ok = true;
+            }
+            if (str2.charAt(j) == '(' || str2.charAt(j) == ')'){
+                l2 = j+1;
+                ok = true ;
+            }
+            if (ok){
+                break;
+            }
+
+            if (charCompare(str1.charAt(i) , str2.charAt(j)) == str1.charAt(i)){
                 return str1;
             }
-            else if (charCompare(c1,c2) == c2){
+            else if (charCompare(str1.charAt(i),str2.charAt(j)) == str2.charAt(j)){
                 return str2;
             }
         }
